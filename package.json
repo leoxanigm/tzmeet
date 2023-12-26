@@ -1,0 +1,19 @@
+{
+  "name": "tzmeet",
+  "version": "1.0.0",
+  "description": "Schedule Meetings Across Time Zones",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leoxanigm/tzmeet.git"
+  },
+  "author": "Zola",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/leoxanigm/tzmeet/issues"
+  },
+  "homepage": "https://github.com/leoxanigm/tzmeet#readme"
+}
