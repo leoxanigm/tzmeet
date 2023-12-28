@@ -1,0 +1,64 @@
+:root {
+  /* Color theme */
+  --gray-100: #fafafa;
+  --gray-200: #efeff0;
+  --gray-300: #ededed;
+  --gray-400: #e0e0e3;
+  --gray-500: #cccdcf;
+  --gray-600: #9a9a9a;
+  --gray-700: #333336;
+  --gray-800: #1f1f1f;
+  --gray-900: #1d1d1f;
+  --light-blue: #237bd3;
+  --blue: #0071e3;
+  --orange: #ff9500;
+  --green: #008a00;
+  --red: #ff3b2f;
+
+  /* Font size */
+  --font-small: 1rem;
+  --font-normal: 1.125rem;
+  --font-lg: 1.25rem;
+  --font-xlg: 1.5rem;
+  --font-xxlg: 1.75rem;
+
+  /* Overwrite bootstrap variables */
+
+}
+
+body {
+  color: var(--gray-900);
+  font-size: var(--font-normal);
+}
+
+h1 {
+  font-size: var(--font-xxlg);
+}
+
+fieldset {
+  border: 1px solid var(--gray-500);
+  border-radius: var(--bs-border-radius-sm);
+  padding: 1rem 2rem;
+  margin-bottom: 1rem;
+}
+
+legend {
+  font-size: var(--font-small);
+  float: unset;
+  padding: 0.5rem;
+  margin: unset;
+  width: unset;
+}
+
+.border-grey-light {
+  border-color: var(--gray-500);
+}
+
+.container {
+  max-width: 860px;
+}
+
+.feature-header {
+  padding: 0 5rem;
+  text-align: center;
+}
