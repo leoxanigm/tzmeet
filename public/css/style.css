@@ -23,7 +23,7 @@
   --font-xlg: 1.5rem;
   --font-xxlg: 1.75rem;
 
-  /* Border */
+  /* Border radius */
   --border-sm: 0.125rem;
   --border-m: 0.25rem;
   --border-lg: 0.375rem;
@@ -96,13 +96,17 @@ input[type="number"]:focus {
   font-style: italic;
   margin: 0.25rem 0 0 0;
 }
+
+.text-small {
+  font-size: var(--font-xsm);
+}
 /* Global style end */
 
 /* Overwrite bootstrap classes start */
 
 .btn {
   font-size: var(--font-m);
-  border-radius: 0.25rem;
+  border-radius: var(--border-m);
   border: none;
   margin: 0rem;
 }
@@ -189,111 +193,54 @@ input[type="number"]:focus {
 
 /* Current time and time zone section start */
 
-.hour-minute-container {
+.time-preference-container {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-  & .value {
-    text-align: center;
-    width: 10mm;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid var(--gray-500);
-    border-radius: var(--border-m);
-  }
+  & .time-zone-container {
+    & #time-zone-select {
+      display: flex;
+      border: 1px solid var(--gray-500);
+      border-radius: var(--border-m);
+      margin-top: 0.5rem;
+      & input {
+        border: none;
+      }
+      &:focus-within {
+        border-color: var(--gray-600);
+        box-shadow: unset;
 
-  & #hour-input {
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
-  }
-
-  & #minute-input {
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 0px;
-  }
-
-  & .hour-container .btn,
-  .minute-container .btn {
-    /* height: 7mm; */
-    width: 9mm;
-    padding: 0px;
-    border: 1px solid var(--gray-500);
-    background-color: white;
-
-    &:first-child {
-      margin-bottom: 2px;
-    }
-
-    &:active {
-      background-color: var(--gray-600);
+        & i {
+          color: var(--gray-600);
+        }
+      }
     }
   }
 
-  & .hour-container .btn {
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 0px;
-  }
-
-  & .minute-container .btn {
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
-  }
-}
-
-.am-pm-container {
-  margin-left: 0.5rem;
-  /* height: 100%; */
-
-  & .btn {
-    font-size: var(--font-sm);
-    /* height: 7mm; */
+  & .current-time-container {
     display: flex;
-    align-items: center;
-    padding: 0rem;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    align-items: end;
+    margin-top: 0.5rem;
+
+    & .time-now {
+      & .second {
+        opacity: 1;
+        transition: opacity 0.3s ease-in-out;
+
+        &.hide {
+          opacity: 0;
+        }
+      }
+    }
+
+    & .time-format-toggle {
+      margin-left: 1rem;
+      & .btn {
+        padding: 0.15rem 0.5rem;
+      }
+    }
   }
-}
-
-.time-zone-container {
-  position: relative;
-}
-
-#time-zone-select {
-  display: flex;
-}
-
-#time-zone-select #time-zone-input {
-  border-right: none;
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
-}
-
-#time-zone-select .btn {
-  border-left: none;
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px;
-}
-
-#time-zone-list {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  max-height: 16rem;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  z-index: 100;
-  border-radius: 0.25rem;
-  box-shadow: var(--shadow-m);
-  transition: all 0.3s ease-in-out;
-}
-
-#time-zone-list .list-group-item:hover {
-  cursor: pointer;
-  background-color: var(--light-blue);
-  color: white;
 }
 
 /* Current time and time zone section end */
