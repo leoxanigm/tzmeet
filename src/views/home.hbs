@@ -1,53 +1,37 @@
-<nav class='navbar border-bottom border-grey-light'>
-  <div class='container-fluid'>
-    <a class='navbar-brand' href='/'>TZmeet</a>
+<nav class="navbar border-bottom border-grey-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">TZmeet</a>
   </div>
 </nav>
-<div class='container'>
-  <div class='feature-header'>
-    <h1 class='my-3'>Schedule Meetings Across Time Zones</h1>
+<div class="container">
+  <div class="feature-header">
+    <h1 class="my-3">Schedule Meetings Across Time Zones</h1>
     <p>Say goodbye to time zone headaches! TZmeet simplifies scheduling
       meetings, no matter where your team is. Every participant picks their
       ideal meeting time, we handle the rest.</p>
-    <form action='' method='get' class='row'>
-      <label for='meeting-code' class='col'>Participant? Enter a meeting code</label>
-      <div class='input-group col'>
+    <form action="" method="get" class="row">
+      <label for="meeting-code" class="col">Participant? Enter a meeting code</label>
+      <div class="input-group col">
         <input
-          type='text'
-          class='form-control'
-          name='meeting-code'
-          id='meeting-code'
+          type="text"
+          class="form-control"
+          name="meeting-code"
+          id="meeting-code"
           aria-label="Recipient's username"
-          aria-describedby='button-addon2'
+          aria-describedby="button-addon2"
         />
         <button
-          class='btn btn-success'
-          type='button'
-          id='button-addon2'
-        >Button</button>
+          class="btn btn-success"
+          type="button"
+          id="submit-code"
+        >GO</button>
       </div>
     </form>
-    <p>or provide meeting details below to start scheduling availability.</p>
+    <p class="my-3">or provide meeting details below to start scheduling availability.</p>
   </div>
   <main>
-    <form action='' method='post'>
-      <fieldset>
-        <legend>Current time and time zone</legend>
-        <div class='time-preference-container row'>
-          <div class='current-time col-4'>
-            <label for=''>Your current time</label>
-            <input type="text">
-          </div>
-          <div class='time-format col-4'>
-            <label for=''>Time format</label>
-            <input type="text">
-          </div>
-          <div class='time-zone col-4'>
-            <label for=''>Your time zone</label>
-            <input type="text">
-          </div>
-        </div>
-      </fieldset>
+    <form action="" method="post">
+      {{> time-and-time-zone}}
     </form>
   </main>
 </div>

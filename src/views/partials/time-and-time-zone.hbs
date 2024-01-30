@@ -1,0 +1,136 @@
+<fieldset>
+  <script>
+    const timezoneData =
+    {{{timezoneData}}}
+  </script>
+  <legend>Current time and time zone</legend>
+  <input type="text" name="time-input" id="time-input" hidden />
+  <div class="time-preference-container row align-items-start">
+    <div class="current-time-container col-lg-4 col-6">
+      <div>Your current time</div>
+      <div class="hour-minute-container">
+        <div
+          class="btn-group-vertical hour-container"
+          role="group"
+          aria-label="Vertical button group"
+        >
+          <button
+            type="button"
+            class="btn btn-light time-modify-btn increase-hour"
+            data-type="hour"
+            data-value="1"
+          ><i class="bi-plus-lg"></i></button>
+          <button
+            type="button"
+            class="btn btn-light time-modify-btn decrease-hour"
+            data-type="hour"
+            data-value="-1"
+          ><i class="bi-dash-lg"></i></button>
+
+        </div>
+        <input
+          class="value"
+          type="number"
+          name="hour-input"
+          id="hour-input"
+          value="7"
+        />
+
+        <input
+          class="value ms-1"
+          type="number"
+          name="minute-input"
+          id="minute-input"
+          value="60"
+        />
+        <div
+          class="btn-group-vertical minute-container"
+          role="group"
+          aria-label="Vertical button group"
+        >
+          <button
+            type="button"
+            class="btn btn-light time-modify-btn increase-minute"
+            data-type="minute"
+            data-value="1"
+          ><i class="bi-plus-lg"></i></button>
+          <button
+            type="button"
+            class="btn btn-light time-modify-btn decrease-minute"
+            data-type="minute"
+            data-value="-1"
+          ><i class="bi-dash-lg"></i></button>
+
+        </div>
+
+        <div class="btn-group-vertical am-pm-container" role="group">
+          <input
+            type="radio"
+            class="btn-check time-modify-btn"
+            name="time-am-pm"
+            id="time-am"
+            data-type="meridiem"
+            data-value="AM"
+          />
+          <label class="btn" for="time-am">AM</label>
+
+          <input
+            type="radio"
+            class="btn-check time-modify-btn"
+            name="time-am-pm"
+            id="time-pm"
+            data-type="meridiem"
+            data-value="PM"
+          />
+          <label class="btn" for="time-pm">PM</label>
+
+        </div>
+
+      </div>
+
+    </div>
+    <div class="time-format-container col-lg-2 col-6">
+      <div>Time format</div>
+      <div class="btn-group" role="group">
+        <input
+          type="radio"
+          class="btn-check time-modify-btn"
+          name="time-format"
+          id="time-format-12"
+          data-type="format"
+          data-value="12"
+        />
+        <label class="btn" for="time-format-12">12</label>
+
+        <input
+          type="radio"
+          class="btn-check time-modify-btn"
+          name="time-format"
+          id="time-format-24"
+          data-type="format"
+          data-value="24"
+        />
+        <label class="btn" for="time-format-24">24</label>
+
+      </div>
+    </div>
+    <div class="time-zone-container col-lg-6 col-12">
+      <label for="time-zone-input">Your time zone</label>
+      <div id="time-zone-select">
+        <input
+          class="form-control"
+          type="text"
+          value="CET"
+          id="time-zone-input"
+        />
+        <span class="btn btn-light"><i class="bi-caret-down-fill"></i></span>
+      </div>
+      <div id="time-zone-list">
+        <ul class="list-group">
+        </ul>
+      </div>
+    </div>
+  </div>
+  <p class="help-text text-end">These is automatically calculated. You can
+    change it if it is not your current time and time zone.</p>
+</fieldset>

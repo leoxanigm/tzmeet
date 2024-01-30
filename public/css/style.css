@@ -16,19 +16,34 @@
   --red: #ff3b2f;
 
   /* Font size */
-  --font-small: 1rem;
-  --font-normal: 1.125rem;
+  --font-xsm: 0.75rem;
+  --font-sm: 1rem;
+  --font-m: 1.125rem;
   --font-lg: 1.25rem;
   --font-xlg: 1.5rem;
   --font-xxlg: 1.75rem;
 
-  /* Overwrite bootstrap variables */
+  /* Border */
+  --border-sm: 0.125rem;
+  --border-m: 0.25rem;
+  --border-lg: 0.375rem;
 
+  /* Shadow */
+  --shadow-sm: 0px 0px 2px rgba(0, 0, 0, 0.25);
+  --shadow-m: 0px 0px 4px rgba(0, 0, 0, 0.125);
+  --shadow-lg: 0px 0px 6px rgba(0, 0, 0, 0.125);
+
+  /* Overwrite bootstrap variables */
+  --bs-body-color: var(--gray-900);
+  --bs-btn-active-bg: var(--blue);
+  --bs-btn-active-color: var(--gray-100);
 }
+
+/* Global style start */
 
 body {
   color: var(--gray-900);
-  font-size: var(--font-normal);
+  font-size: var(--font-m);
 }
 
 h1 {
@@ -40,6 +55,10 @@ fieldset {
   border-radius: var(--bs-border-radius-sm);
   padding: 1rem 2rem;
   margin-bottom: 1rem;
+}
+
+fieldset > div {
+  margin-top: -0.75rem !important;
 }
 
 legend {
@@ -58,7 +77,223 @@ legend {
   max-width: 860px;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+} /* Remove arrow from number input - Chrome, Safari, Edge, Opera */
+
+input[type="number"] {
+  -moz-appearance: textfield;
+} /* Remove arrow from number input - Firefox */
+
+input[type="number"]:focus {
+  outline: none;
+}
+
+.help-text {
+  font-size: var(--font-xsm);
+  font-style: italic;
+  margin: 0.25rem 0 0 0;
+}
+/* Global style end */
+
+/* Overwrite bootstrap classes start */
+
+.btn {
+  font-size: var(--font-m);
+  border-radius: 0.25rem;
+  border: none;
+  margin: 0rem;
+}
+
+.btn:hover {
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
+  text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
+}
+
+.btn.btn-primary,
+.btn.btn-primary:hover,
+.btn.btn-primary:active {
+  background-color: var(--blue);
+}
+
+.btn.btn-secondary,
+.btn.btn-secondary:hover,
+.btn.btn-secondary:active {
+  background-color: var(--gray-500);
+  color: var(--gray-800);
+}
+
+.btn.btn-success {
+  min-width: 6rem;
+  font-weight: 500;
+}
+
+.btn.btn-success,
+.btn.btn-success:hover,
+.btn.btn-success:active {
+  background-color: var(--green);
+}
+
+.btn.btn-danger,
+.btn.btn-danger:hover,
+.btn.btn-danger:active {
+  background-color: var(--red);
+}
+
+.btn.btn-warning,
+.btn.btn-warning:hover,
+.btn.btn-warning:active {
+  background-color: var(--orange);
+}
+
+.btn.btn-light,
+.btn.btn-light:hover,
+.btn.btn-light:active {
+  background-color: unset;
+  border: 1px solid var(--gray-500);
+}
+
+.btn-group,
+.btn-group-vertical {
+  background-color: var(--gray-500);
+  border-radius: var(--border-m);
+}
+
+.btn-group .btn,
+.btn-group-vertical .btn {
+  border: none;
+}
+
+.form-control {
+  border-radius: var(--border-m);
+  border-color: var(--gray-500);
+}
+
+.form-control:focus {
+  border-color: var(--gray-600);
+  box-shadow: unset;
+}
+
+/* Overwrite bootstrap classes end */
+
+/* Feature section start */
+
 .feature-header {
   padding: 0 5rem;
   text-align: center;
 }
+
+/* Feature section end */
+
+/* Current time and time zone section start */
+
+.hour-minute-container {
+  display: flex;
+
+  & .value {
+    text-align: center;
+    width: 10mm;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--gray-500);
+    border-radius: var(--border-m);
+  }
+
+  & #hour-input {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+  }
+
+  & #minute-input {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+  }
+
+  & .hour-container .btn,
+  .minute-container .btn {
+    /* height: 7mm; */
+    width: 9mm;
+    padding: 0px;
+    border: 1px solid var(--gray-500);
+    background-color: white;
+
+    &:first-child {
+      margin-bottom: 2px;
+    }
+
+    &:active {
+      background-color: var(--gray-600);
+    }
+  }
+
+  & .hour-container .btn {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+  }
+
+  & .minute-container .btn {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+  }
+}
+
+.am-pm-container {
+  margin-left: 0.5rem;
+  /* height: 100%; */
+
+  & .btn {
+    font-size: var(--font-sm);
+    /* height: 7mm; */
+    display: flex;
+    align-items: center;
+    padding: 0rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
+
+.time-zone-container {
+  position: relative;
+}
+
+#time-zone-select {
+  display: flex;
+}
+
+#time-zone-select #time-zone-input {
+  border-right: none;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+#time-zone-select .btn {
+  border-left: none;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+#time-zone-list {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-height: 16rem;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  z-index: 100;
+  border-radius: 0.25rem;
+  box-shadow: var(--shadow-m);
+  transition: all 0.3s ease-in-out;
+}
+
+#time-zone-list .list-group-item:hover {
+  cursor: pointer;
+  background-color: var(--light-blue);
+  color: white;
+}
+
+/* Current time and time zone section end */

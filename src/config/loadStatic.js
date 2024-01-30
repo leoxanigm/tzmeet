@@ -12,6 +12,10 @@ module.exports = app => {
     '/',
     express.static(path.join(__dirname, '../../node_modules/bootstrap/dist/'))
   );
+  app.use(
+    '/font',
+    express.static(path.join(__dirname, '../../node_modules/bootstrap-icons/font/'))
+  );
   app.use('/', express.static(path.join(__dirname, '../../public')));
   app.use(
     '/js',
