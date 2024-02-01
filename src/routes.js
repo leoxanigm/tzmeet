@@ -3,9 +3,9 @@ const fs = require('fs');
 const path = require('path');
 
 router.get('/', (req, res) => {
-  const dataPath = path.join(__dirname, '/utils/timezoneData.json');
-  const timezoneData = fs.readFileSync(dataPath, { encoding: 'utf8' });
-  res.render('home', { timezoneData });
+  const dataPath = path.join(__dirname, '/utils/searchData.json');
+  const searchData = fs.readFileSync(dataPath, { encoding: 'utf8' });
+  res.render('home', { searchData });
 });
 
 module.exports = router;

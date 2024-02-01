@@ -14,6 +14,7 @@
   --orange: #ff9500;
   --green: #008a00;
   --red: #ff3b2f;
+  --white: #ffffff;
 
   /* Font size */
   --font-xsm: 0.75rem;
@@ -67,6 +68,13 @@ legend {
   padding: 0.5rem;
   margin: unset;
   width: unset;
+}
+
+ul {
+  padding: 0;
+  & li {
+    list-style-type: none;
+  }
 }
 
 .border-grey-light {
@@ -199,6 +207,8 @@ input[type="number"]:focus {
   align-items: center;
 
   & .time-zone-container {
+    position: relative;
+
     & #time-zone-select {
       display: flex;
       border: 1px solid var(--gray-500);
@@ -213,6 +223,35 @@ input[type="number"]:focus {
 
         & i {
           color: var(--gray-600);
+        }
+      }
+    }
+
+    & #time-zone-list {
+      font-size: var(--font-sm);
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      max-height: 15rem;
+      overflow-y: scroll;
+      background-color: var(--white);
+      border: 1px solid var(--gray-300);
+      border-radius: var(--border-m);
+      box-shadow: var(--shadow-lg);
+      padding: 0.5rem 0;
+      z-index: 1;
+
+      &.hidden {
+        display: none;
+      }
+
+      & li {
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+
+        &:hover {
+          background-color: var(--gray-200);
         }
       }
     }
