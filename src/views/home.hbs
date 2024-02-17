@@ -4,7 +4,7 @@
   </div>
 </nav>
 <div class="container">
-  <div class="feature-header">
+  {{!-- <div class="feature-header">
     <h1 class="my-3">Schedule Meetings Across Time Zones</h1>
     <p>Say goodbye to time zone headaches! TZmeet simplifies scheduling
       meetings, no matter where your team is. Every participant picks their
@@ -28,11 +28,17 @@
       </div>
     </form>
     <p class="my-3">or provide meeting details below to start scheduling availability.</p>
-  </div>
+  </div> --}}
   <main>
     <form action="" method="post">
       {{> time-and-time-zone}}
-      {{> meeting-details}}
+      {{!-- {{> meeting-details}} --}}
+      {{> calendar}}
     </form>
+    <footer class="mt-4">
+      <p class="text-center">
+        &copy; 2024 TZmeet
+      </p>
+    </footer>
   </main>
 </div>

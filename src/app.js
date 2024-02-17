@@ -21,6 +21,9 @@ app.engine('hbs', exphbs.engine({ extname: '.hbs' }));
 app.set('view engine', 'hbs');
 app.set('views', './src/views');
 
+// Initialize handlebars helpers
+require('./utils/helpers/hbs')(exphbs);
+
 // Setup router
 app.use('/', router);
 

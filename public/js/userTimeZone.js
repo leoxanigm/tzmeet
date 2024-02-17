@@ -11,12 +11,12 @@ class Timezone {
     this.searchData = searchData;
 
     // Get user's timezone from local storage
-    const zoneName = this.#getFromLocalStorage('zoneName');
+    const zoneName = getFromLocalStorage('zoneName');
     if (zoneName) {
       this.zone = zoneName;
     }
     // Get user's time format from local storage
-    const format = this.#getFromLocalStorage('format');
+    const format = getFromLocalStorage('format');
     if (format) {
       this.format = format;
     }
@@ -31,13 +31,17 @@ class Timezone {
     return luxon.DateTime.local().toFormat(format);
   }
 
+  get timeObj() {
+    return luxon.DateTime.local();
+  }
+
   /**
    * Set time format
    * @param {string} format 12 or 24
    */
   set format(format) {
     format == '24' ? (this.#format = '24') : (this.#format = '12');
-    this.#saveToLocalStorage('format', this.#format);
+    saveToLocalStorage('format', this.#format);
   }
 
   /**
@@ -71,7 +75,7 @@ class Timezone {
    */
   set zone(zoneName) {
     luxon.Settings.defaultZone = zoneName;
-    this.#saveToLocalStorage('zoneName', zoneName);
+    saveToLocalStorage('zoneName', zoneName);
   }
 
   /**
@@ -99,18 +103,6 @@ class Timezone {
       return [offsetName, timeAt, zoneName];
     });
     return result;
-  }
-
-  #saveToLocalStorage(key, value) {
-    localStorage.setItem(key, value);
-  }
-
-  #getFromLocalStorage(key) {
-    try {
-      return localStorage.getItem(key);
-    } catch (e) {
-      return null;
-    }
   }
 }
 
@@ -176,8 +168,8 @@ function modifyFormat(e, TZ) {
 
 /**
  * Displays and updates search result list
- * @param {Event} e HTML input event 
- * @param {Timezone} TZ 
+ * @param {Event} e HTML input event
+ * @param {Timezone} TZ
  */
 function updateSearchResult(e, TZ) {
   const result = TZ.searchLocation(e.target.value);
@@ -203,9 +195,7 @@ function updateSearchResult(e, TZ) {
   });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  const TZ = new Timezone(searchData); // searchData is loaded in a script tag
-
+function initTimezone(TZ) {
   // Update time display every half second
   setInterval(() => updateTimeDisplay(TZ), 500);
 
@@ -235,4 +225,4 @@ document.addEventListener('DOMContentLoaded', () => {
     getNodes('#time-zone-list').classList.add('hidden');
     initTimezoneInput(TZ);
   });
-});
+}
