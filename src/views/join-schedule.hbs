@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="alert-placeholder"></div>
+  <div class="feature-header">
+    <h1 class="my-3">{{ title }} scheduling Page</h1>
+    <p>
+      Welcome to the scheduling page for {{ title }}! Please select your
+      preferred meeting times.
+    </p>
+    {{> meeting-info }}
+  </div>
+  <div class="text-center my-3">
+    <h5>Already submitted your availability?</h5>
+    <a
+      class="btn btn-primary"
+      href="/meeting?meetingCode={{ meetingCode }}&showMatching=1"
+    >
+      See Availability Matches
+    </a>
+  </div>
+  <main>
+    {{> schedule-form formType="join-schedule" titleInput="false" passwordInput="false" showDuration="false" showDisplayToggle="false" }}
+  </main>
+</div>

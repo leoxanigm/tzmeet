@@ -3,11 +3,11 @@ const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
 
-const router = require('./routes');
-
 // Setup application
 const app = express();
 dotenv.config();
+
+const router = require('./routes');
 
 // Load static config
 require('./config/loadStatic')(app);

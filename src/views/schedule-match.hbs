@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="alert-placeholder"></div>
+  <div class="feature-header">
+    <h1 class="my-3">Schedule matches for {{ title }}</h1>
+    <p>
+      Welcome to the page for {{ title }}. Here, you can view the selected hours
+      of the participants.
+    </p>
+    {{> meeting-info}}
+  </div>
+  <div class="text-center my-3">
+    <h5>Have not submitted your availability yet?</h5>
+    <a class="btn btn-primary" href="/meeting?meetingCode={{ meetingCode }}">
+      Submit Your Availability
+    </a>
+  </div>
+  <main>
+    {{> time-and-time-zone}}
+    <fieldset>
+      <legend>Participant Availability</legend>
+      <h5>Schedule Matches</h5>
+      <p>
+        Below are the best meeting times, sorted by participant availability.
+      </p>
+      <div id="schedule-matches-container" class="mt-3">
+        <p class="text-center text-small">Fetching matches...</p>
+        <div class="placeholder-glow row">
+          {{#loop 3}}
+          <div class="placeholder col"></div>
+          {{/loop}}
+        </div>
+      </div>
+      <div id="schedule-matches"></div>
+      <div class="export-calendar-container mt-5">
+        <h5>Export to Calendar</h5>
+        <div>
+          Add to calendar:
+          <a href="#" class="btn btn-success" data-type="google">
+            <img class="calendar-icon" src="/img/google_calendar.png" alt="Google Calendar" />
+            Google
+          </a>
+          <a href="#" class="btn btn-success" data-type="outlook">
+            <img class="calendar-icon" src="/img/outlook_calendar.png" alt="Outlook Calendar" />
+            Outlook
+            </a>
+          <a href="#" class="btn btn-success" data-type="office365">
+            <img class="calendar-icon" src="/img/office365_calendar.png" alt="office365 Calendar" />
+            office365
+            </a>
+        </div>
+        <div>
+          Or download calendar .ics file (for example, Apple Calendar):
+          <a href="#" class="btn btn-success" data-type="ics">
+            <i class="bi bi-download"></i>
+            Download
+          </a>
+        </div>
+      </div>
+    </fieldset>
+  </main>
+</div>

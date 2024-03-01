@@ -1,24 +1,42 @@
 <fieldset id="selection-options">
+  {{#if (eq showDuration "true")}}
   <legend>Calendar view options</legend>
+  {{else}}
+  <legend>Add your preferred meeting times</legend>
+  {{/if}}
   <div class="options-container row">
-    <div class="meeting-duration col mb-2">
-      <div class="option-name">Duration (mins)</div>
-
-      <div class="btn-group" role="group" aria-label="Meeting duration">
-        {{#loop "10, 15, 30, 60"}}
-          <input
-            type="radio"
-            class="btn-check"
-            name="duration"
-            value="{{val}}"
-            id="dur-{{val}}"
-            {{checked val "60"}}
+    {{#if (eq showDuration "true")}}
+    <div class="meeting-duration col mb-2" data-display="">
+      <div class="week">
+        <div class="option-name">Duration (mins)</div>
+        <div class="btn-group" role="group" aria-label="Meeting duration">
+          {{#loop "10, 15, 30, 60"}}
+          <input type="radio" class="btn-check" name="duration-week" value="{{
+            val
+          }}" id="dur-{{ val }}"
+          {{checked val "60"}}
           />
-          <label class="btn" for="dur-{{val}}">{{val}}</label>
-        {{/loop}}
+          <label class="btn" for="dur-{{ val }}">{{ val }}</label>
+          {{/loop}}
+        </div>
+      </div>
+      <div class="month">
+        <div class="option-name">Duration (hours)</div>
+        <div class="btn-group" role="group" aria-label="Meeting duration">
+          {{#loop "4, 8, 12"}}
+          <input type="radio" class="btn-check" name="duration-month" value="{{
+            val
+          }}" id="dur-{{ val }}"
+          {{checked val "12"}}
+          />
+          <label class="btn" for="dur-{{ val }}">{{ val }}</label>
+          {{/loop}}
+        </div>
       </div>
     </div>
+    {{/if}}
 
+    {{#if (eq showDisplayToggle "true")}}
     <div class="week-month-display col mb-2">
       <div class="option-name">Display</div>
 
@@ -27,44 +45,52 @@
           type="radio"
           class="btn-check"
           name="display"
+          value="week"
           id="week"
           checked
         />
         <label class="btn" for="week">Week</label>
 
-        <input type="radio" class="btn-check" name="display" id="month" />
+        <input
+          type="radio"
+          class="btn-check"
+          name="display"
+          value="month"
+          id="month"
+        />
         <label class="btn" for="month">Month</label>
-
       </div>
     </div>
+    {{/if}}
 
     <div class="cal-navigation col mb-2">
       <div class="option-name">Jump to</div>
 
       <div class="btn-group" role="group" aria-label="Calendar Navigation">
-        <button type="button" class="btn prev">
+        <button type="button" class="btn prev" data-nav="prev">
           <i class="bi bi-chevron-left"></i>
         </button>
-        <button type="button" class="btn btn-primary prev">
-          <span class="current-window">Dec 10 - 16</span></button>
-        <button type="button" class="btn prev">
+        <div type="button" class="btn btn-primary">
+          <span class="current-window"></span>
+        </div>
+        <button type="button" class="btn next" data-nav="next">
           <i class="bi bi-chevron-right"></i>
         </button>
-
       </div>
     </div>
   </div>
-  <p class="help-text">Click on the time slots below to select your preferred
-    times. Click and drag to select multiple slots. Click on a selected slot to
-    remove it.</p>
+  <p class="help-text">
+    Click on the time slots below to select your preferred times. Click and drag
+    to select multiple slots. Click on a selected slot to remove it.
+  </p>
 </fieldset>
 
 <div id="calendar">
-
   <div id="cal-placeholder">
+    <p class="text-center text-small">Initializing calendar...</p>
     <div class="placeholder-glow row">
       {{#loop 7}}
-        <div class="placeholder col"></div>
+      <div class="placeholder col"></div>
       {{/loop}}
     </div>
     <div class="placeholder-glow row">
@@ -73,5 +99,4 @@
   </div>
   <div id="calendar-header" class="row"></div>
   <div id="calendar-body"></div>
-
 </div>

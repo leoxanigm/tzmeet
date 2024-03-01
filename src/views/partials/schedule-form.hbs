@@ -1,0 +1,13 @@
+<form
+  action=""
+  method="post"
+  id="calendar-form"
+  data-form-type="{{ formType }}"
+>
+  {{> time-and-time-zone}}
+  {{> meeting-detail-inputs titleInput=titleInput passwordInput=passwordInput}}
+  {{> calendar showDisplayToggle=showDisplayToggle showDuration=showDuration}}
+  <button type="submit" class="btn btn-success d-block my-4 mx-auto w-50 py-2">
+    Create and Share
+  </button>
+</form>

@@ -1,0 +1,30 @@
+<div class="meeting-info row gx-5">
+  <div class="card col-sm">
+    <div class="card-header">Host</div>
+    <div class="card-body">
+      {{ host }}
+    </div>
+  </div>
+  <div class="card col-sm">
+    <div class="card-header">Meeting Code</div>
+    <div class="card-body">
+      {{ meetingCode }}
+      <button type="button" class="btn copy-code">
+        <i class="bi bi-copy"></i>
+      </button>
+    </div>
+  </div>
+  <div class="card col-sm">
+    <div class="card-header">Duration</div>
+    <div class="card-body">
+      {{ duration }}
+    </div>
+  </div>
+  <span
+    class="duration-display-info"
+    data-title="{{ title }}"
+    data-display="{{ display }}"
+    data-duration="{{ duration }}"
+    style="display: none"
+  ></span>
+</div>

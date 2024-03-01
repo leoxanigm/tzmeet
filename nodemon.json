@@ -1,6 +1,6 @@
 {
   "verbose": false,
-  "ignore": ["node_modules/**/node_modules"],
+  "ignore": ["node_modules/**/node_modules", "src/client/**"],
   "watch": ["src", "public"],
   "ext": "js, hbs, css"
 }

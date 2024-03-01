@@ -24,4 +24,12 @@ module.exports = () => {
   hbs.registerHelper('checked', (curr, target) => {
     return curr === target ? 'checked' : '';
   });
+
+  hbs.registerHelper('currentYear', () => {
+    return new Date().getFullYear();
+  });
+
+  hbs.registerHelper('supportEmail', () => {
+    return process.env.SUPPORT_EMAIL;
+  });
 };

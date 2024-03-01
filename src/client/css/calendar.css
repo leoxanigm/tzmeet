@@ -24,11 +24,38 @@
     }
   }
 
-  .cal-navigation {
-    .btn-primary {
-      &:hover,
-      &:active {
-        background-color: var(--blue);
+  & .meeting-duration {
+    & > div {
+      display: none;
+    }
+
+    &[data-display="week"] {
+      & > .week {
+        display: block;
+      }
+    }
+
+    &[data-display="month"] {
+      & > .month {
+        display: block;
+      }
+    }
+  }
+
+  & .cal-navigation {
+    & .btn-group {
+      width: 100%;
+
+      & .btn-primary {
+        &:hover,
+        &:active {
+          background-color: var(--blue);
+        }
+      }
+
+      & .prev,
+      & .next {
+        flex: 0 0 auto;
       }
     }
   }
@@ -41,7 +68,7 @@
     margin: 0rem;
     position: sticky;
     top: 0;
-    z-index: 9000;
+    z-index: 99;
     background-color: var(--white);
     box-shadow: 0px 0px 3px 0px var(--gray-500);
 
@@ -143,7 +170,6 @@
 
       & .hour {
         text-align: center;
-        max-width: 75px;
         padding: 0.5rem 0rem;
         position: relative;
 
@@ -171,10 +197,79 @@
       width: 90%;
       cursor: pointer;
 
-      & .hover-div {
-        background-color: var(--light-blue);
+      & .selected-div {
+        background-color: var(--green-transparent);
         position: absolute;
         animation: fade-in 200ms;
+        border-radius: var(--border-sm);
+        border: 1px solid var(--gray-200);
+
+        & * {
+          display: none;
+        }
+      }
+
+      & .hover-div {
+        background-color: var(--light-blue-transparent);
+        position: absolute;
+        animation: fade-in 200ms;
+
+        &.selected {
+          background-color: var(--red);
+        }
+
+        & .time-label {
+          position: absolute;
+          top: 100%;
+          left: 50%;
+          transform: translateX(-50%);
+          width: max-content;
+          background-color: var(--white);
+          padding: 0.25rem;
+          border: var(--border-xsm) solid var(--gray-500);
+          border-radius: var(--border-m);
+          box-shadow: var(--shadow-sm);
+          animation: fade-in 1000ms;
+          z-index: 100;
+
+          &::after {
+            content: "";
+            position: absolute;
+            display: block;
+            top: -30%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 0.5rem solid transparent;
+            border-right: 0.5rem solid transparent;
+            border-bottom: 0.5rem solid var(--white);
+          }
+
+          &.top {
+            top: unset;
+            bottom: 100%;
+
+            &::after {
+              top: 100%;
+              bottom: unset;
+              border-top: 0.5rem solid var(--white);
+              border-bottom: none;
+            }
+          }
+
+          &.left {
+            left: unset;
+            right: 0;
+            transform: unset;
+
+            &::after {
+              left: unset;
+              right: 0;
+              transform: unset;
+            }
+          }
+        }
       }
     }
 
@@ -233,19 +328,16 @@
             );
           }
         }
-
-        & .divisions {
-          position: relative;
-          width: 100%;
-          height: 75%;
-
-          & .hover-div {
-            background-color: var(--light-blue);
-            position: absolute;
-            animation: fade-in 200ms;
-          }
-        }
       }
+    }
+
+    &.month .divisions {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
     }
   }
 }

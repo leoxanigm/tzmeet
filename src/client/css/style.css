@@ -1,0 +1,216 @@
+:root {
+  /* Color theme */
+  --gray-100: #fafafa;
+  --gray-200: #efeff0;
+  --gray-300: #ededed;
+  --gray-400: #e0e0e3;
+  --gray-500: #cccdcf;
+  --gray-600: #9a9a9a;
+  --gray-700: #333336;
+  --gray-800: #1f1f1f;
+  --gray-900: #1d1d1f;
+  --light-blue: #4892dd;
+  --light-blue-transparent: rgba(72, 146, 221, 0.7);
+  --blue: #0071e3;
+  --orange: #ff9500;
+  --green: #008a00;
+  --green-transparent: rgba(0, 138, 0, 0.7);
+  --red: #ff3b2f;
+  --white: #ffffff;
+
+  /* Font size */
+  --font-xsm: 0.75rem;
+  --font-sm: 1rem;
+  --font-m: 1.125rem;
+  --font-lg: 1.25rem;
+  --font-xlg: 1.5rem;
+  --font-xxlg: 1.75rem;
+
+  /* Border radius */
+  --border-xsm: 0.0625rem;
+  --border-sm: 0.125rem;
+  --border-m: 0.25rem;
+  --border-lg: 0.375rem;
+
+  /* Shadow */
+  --shadow-sm: 0px 0px 2px rgba(0, 0, 0, 0.25);
+  --shadow-m: 0px 0px 4px rgba(0, 0, 0, 0.125);
+  --shadow-lg: 0px 0px 6px rgba(0, 0, 0, 0.125);
+
+  /* Overwrite bootstrap variables */
+  --bs-body-color: var(--gray-900);
+  --bs-btn-active-bg: var(--blue);
+  --bs-btn-active-color: var(--gray-100);
+}
+
+/* Global style start */
+
+body {
+  color: var(--gray-900);
+  font-size: var(--font-m);
+}
+
+h1 {
+  font-size: var(--font-xxlg);
+}
+
+fieldset {
+  border: var(--border-xsm) solid var(--gray-500);
+  border-radius: var(--bs-border-radius-sm);
+  padding: 1rem 2rem;
+  margin-bottom: 1rem;
+}
+
+fieldset > div {
+  margin-top: -0.75rem !important;
+}
+
+legend {
+  font-size: var(--font-small);
+  float: unset;
+  padding: 0.5rem;
+  margin: unset;
+  width: unset;
+}
+
+ul {
+  padding: 0;
+  & li {
+    list-style-type: none;
+  }
+}
+
+.border-grey-light {
+  border-color: var(--gray-500);
+}
+
+.container {
+  max-width: 860px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+} /* Remove arrow from number input - Chrome, Safari, Edge, Opera */
+
+input[type="number"] {
+  -moz-appearance: textfield;
+} /* Remove arrow from number input - Firefox */
+
+input[type="number"]:focus {
+  outline: none;
+}
+
+input[type="radio"] {
+  transform: scale(1.5);
+}
+
+.help-text {
+  font-size: var(--font-xsm);
+  font-style: italic;
+  margin: 0.25rem 0 0 0;
+}
+
+.text-small {
+  font-size: var(--font-xsm);
+}
+
+.calendar-icon {
+  height: 25px;
+}
+/* Global style end */
+
+/* Feature section start */
+
+.feature-header {
+  padding: 0 5rem;
+  text-align: center;
+}
+
+/* Feature section end */
+
+/* Current time and time zone section start */
+
+.time-preference-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & .time-zone-container {
+    position: relative;
+
+    & #time-zone-select {
+      display: flex;
+      border: var(--border-xsm) solid var(--gray-500);
+      border-radius: var(--border-m);
+      margin-top: 0.5rem;
+      & input {
+        border: none;
+      }
+      &:focus-within {
+        border-color: var(--gray-600);
+        box-shadow: unset;
+
+        & i {
+          color: var(--gray-600);
+        }
+      }
+    }
+
+    & #time-zone-list {
+      font-size: var(--font-sm);
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      max-height: 15rem;
+      overflow-y: scroll;
+      background-color: var(--white);
+      border: var(--border-xsm) solid var(--gray-300);
+      border-radius: var(--border-m);
+      box-shadow: var(--shadow-lg);
+      padding: 0.5rem 0;
+      z-index: 9999;
+
+      &.hidden {
+        display: none;
+      }
+
+      & li {
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+
+        &:hover {
+          background-color: var(--gray-200);
+        }
+      }
+    }
+  }
+
+  & .current-time-container {
+    display: flex;
+    align-items: end;
+    margin-top: 0.5rem;
+
+    & .time-now {
+      & .second {
+        opacity: 1;
+        transition: opacity 0.3s ease-in-out;
+
+        &.hide {
+          opacity: 0;
+        }
+      }
+    }
+
+    & .time-format-toggle {
+      margin-left: 1rem;
+      & .btn {
+        padding: 0.15rem 0.5rem;
+      }
+    }
+  }
+}
+
+/* Current time and time zone section end */

@@ -1,34 +1,46 @@
 <fieldset>
+  {{#if (eq titleInput "true")}}
   <legend>Meeting details</legend>
+  {{else}}
+  <legend>Your details</legend>
+  {{/if }}
   <div class="meeting-details-container row">
+    {{#if (eq titleInput "true")}}
     <div class="col-md-6 mb-3">
       <input
         type="text"
+        name="title"
         class="form-control"
         placeholder="Meeting title*"
         aria-label="Meeting title"
         required
       />
     </div>
+    {{/if }}
     <div class="col-md-6 mb-3">
       <input
         type="text"
+        name="name"
         class="form-control"
         placeholder="Your Name*"
         aria-label="Your Name"
         required
       />
     </div>
+    {{#if (eq passwordInput "true")}}
     <div class="col-md-6">
       <input
         type="text"
+        name="password"
         class="form-control"
         placeholder="Meeting password"
         aria-label="Meeting password"
-        required
       />
-      <p class="help-text">Participants will use this to access their schedule
-        selection (optional).</p>
+      <p class="help-text">
+        Participants will use this to access their schedule selection
+        (optional).
+      </p>
     </div>
+    {{/if }}
   </div>
 </fieldset>

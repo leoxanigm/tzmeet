@@ -1,3 +1,10 @@
+const {
+  getNodes,
+  getFromLocalStorage,
+  saveToLocalStorage,
+} = require('./helpers');
+const luxon = require('luxon');
+
 /** Time zone class that handles users' time zone preference */
 class Timezone {
   #format = '12';
@@ -61,21 +68,21 @@ class Timezone {
   }
 
   /**
-   * Get time zone alternative name
-   * @return {string} time zone alternative name
-   */
-  get zoneAlternativeName() {
-    const zoneLocation = luxon.IANAZone.create(this.zone);
-    return zoneLocation.offsetName(0, { format: 'long' });
-  }
-
-  /**
    * Set time zone and save to local storage
    * @param {string} zoneName time zone name
    */
   set zone(zoneName) {
     luxon.Settings.defaultZone = zoneName;
     saveToLocalStorage('zoneName', zoneName);
+  }
+
+  /**
+   * Get time zone alternative name
+   * @return {string} time zone alternative name
+   */
+  get zoneAlternativeName() {
+    const zoneLocation = luxon.IANAZone.create(this.zone);
+    return zoneLocation.offsetName(0, { format: 'long' });
   }
 
   /**
@@ -195,7 +202,9 @@ function updateSearchResult(e, TZ) {
   });
 }
 
-function initTimezone(TZ) {
+module.exports = function initTimezone(searchData) {
+  const TZ = new Timezone(searchData);
+
   // Update time display every half second
   setInterval(() => updateTimeDisplay(TZ), 500);
 
@@ -225,4 +234,6 @@ function initTimezone(TZ) {
     getNodes('#time-zone-list').classList.add('hidden');
     initTimezoneInput(TZ);
   });
-}
+
+  return TZ;
+};

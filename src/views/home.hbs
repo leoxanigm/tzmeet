@@ -1,16 +1,27 @@
-<nav class="navbar border-bottom border-grey-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">TZmeet</a>
-  </div>
-</nav>
 <div class="container">
-  {{!-- <div class="feature-header">
+  {{#with alert}}
+  <div class="alert alert-{{ type }} alert-dismissible fade show" role="alert">
+    {{ message }}
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+  {{/with}}
+  <div class="alert-placeholder"></div>
+  <div class="feature-header">
     <h1 class="my-3">Schedule Meetings Across Time Zones</h1>
-    <p>Say goodbye to time zone headaches! TZmeet simplifies scheduling
-      meetings, no matter where your team is. Every participant picks their
-      ideal meeting time, we handle the rest.</p>
-    <form action="" method="get" class="row">
-      <label for="meeting-code" class="col">Participant? Enter a meeting code</label>
+    <p>
+      Say goodbye to time zone headaches! TZmeet simplifies scheduling meetings,
+      no matter where your team is. Every participant picks their ideal meeting
+      time, we handle the rest.
+    </p>
+    <form action="/meeting" method="get" class="row">
+      <label for="meeting-code" class="col"
+        >Participant? Enter a meeting code</label
+      >
       <div class="input-group col">
         <input
           type="text"
@@ -20,25 +31,16 @@
           aria-label="Recipient's username"
           aria-describedby="button-addon2"
         />
-        <button
-          class="btn btn-success"
-          type="button"
-          id="submit-code"
-        >GO</button>
+        <button class="btn btn-success" type="submit" id="submit-code">
+          GO
+        </button>
       </div>
     </form>
-    <p class="my-3">or provide meeting details below to start scheduling availability.</p>
-  </div> --}}
+    <p class="my-3">
+      or provide meeting details below to start scheduling availability.
+    </p>
+  </div>
   <main>
-    <form action="" method="post">
-      {{> time-and-time-zone}}
-      {{!-- {{> meeting-details}} --}}
-      {{> calendar}}
-    </form>
-    <footer class="mt-4">
-      <p class="text-center">
-        &copy; 2024 TZmeet
-      </p>
-    </footer>
+    {{> schedule-form formType="start-schedule" titleInput="true" passwordInput="true" showDuration="true" showDisplayToggle="true" }}
   </main>
 </div>
