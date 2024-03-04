@@ -28,6 +28,19 @@ require('./utils/helpers/hbs')(exphbs);
 app.use('/', router);
 
 const port = process.env.PORT;
-app.listen(port, () => {
-  console.log(`TZmeet server running on port ${port}`);
-});
+
+if (process.env.DEVELOPMENT) {
+  app.listen(port, () => {
+    console.log(`TZmeet server running on port ${port}`);
+  });
+} else {
+  const fs = require('fs');
+  const https = require('https');
+
+  const key = fs.readFileSync(process.env.SSL_KEY);
+  const cert = fs.readFileSync(process.env.SSL_CERT);
+
+  https.createServer({ key, cert }, app).listen(port, () => {
+    console.log(`TZmeet server running on port ${port}`);
+  });
+}

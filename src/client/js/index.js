@@ -66,5 +66,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   // finish schedule match page
   //  - meeting code + meeting code with link
   // make everything mobile friendly, and improve the UI
+  // Add logo
   // Deploy to AWS
 });
