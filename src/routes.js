@@ -16,6 +16,10 @@ router.get('/search-data', (req, res) => {
   res.json(getSearchData());
 });
 
+router.get('/join-schedule', (req, res) => {
+  res.render('join-schedule-form');
+});
+
 router.post('/start-schedule', async (req, res) => {
   await startSchedule(req, res);
 });

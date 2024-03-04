@@ -17,6 +17,8 @@ class Timezone {
     // imported json data (script tag)
     this.searchData = searchData;
 
+    luxon.Settings.defaultLocale = 'fr'; // Until we have a language selector
+
     // Get user's timezone from local storage
     const zoneName = getFromLocalStorage('zoneName');
     if (zoneName) {
@@ -82,7 +84,7 @@ class Timezone {
    */
   get zoneAlternativeName() {
     const zoneLocation = luxon.IANAZone.create(this.zone);
-    return zoneLocation.offsetName(0, { format: 'long' });
+    return zoneLocation.offsetName(0, { format: 'long', locale: 'en' });
   }
 
   /**
@@ -103,7 +105,10 @@ class Timezone {
     const result = filtered.map((zone) => {
       const [, zoneName] = zone;
       const zoneLocation = luxon.IANAZone.create(zoneName);
-      const offsetName = zoneLocation.offsetName(0, { format: 'long' });
+      const offsetName = zoneLocation.offsetName(0, {
+        format: 'long',
+        locale: 'en',
+      });
       const timeAt = luxon.DateTime.local()
         .setZone(zoneName)
         .toFormat('hh:mm a');
