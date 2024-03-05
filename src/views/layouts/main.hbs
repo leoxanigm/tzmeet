@@ -8,6 +8,20 @@
     <link rel="stylesheet" href="/font/bootstrap-icons.min.css" />
     <link rel="stylesheet" href="/css/style.css" />
 
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-GHG15QJS71"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-GHG15QJS71");
+    </script>
   </head>
   <body>
     <nav class="navbar border-bottom border-grey-light">
@@ -15,12 +29,15 @@
         <a class="navbar-brand" href="/">TZmeet</a>
       </div>
     </nav>
+
+    <div class="alert-placeholder"></div>
+
     {{{body}}}
 
     <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="/js/luxon.min.js"></script>
     <script src="/js/tzmeet.bundle.js"></script>
-    
+
     <footer class="mt-5 border-top text-secondary">
       <p class="text-center mb-0 mt-1">
         If you found a bug or for general support please

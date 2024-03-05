@@ -129,7 +129,11 @@ module.exports = initCalendarForm = (calendar, meetingCode = null) => {
         .validateSubmit()
         .then((data) => {
           if (data.meetingCode) {
-            window.location.href = `/meeting?meetingCode=${data.meetingCode}&showMatching=1`;
+            if (data.password) {
+              window.location.href = `/meeting?meetingCode=${data.meetingCode}&showMatching=1&password=${data.password}`;
+            } else {
+              window.location.href = `/meeting?meetingCode=${data.meetingCode}&showMatching=1`;
+            }
           }
         })
         .catch((err) => {

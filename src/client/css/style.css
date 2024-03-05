@@ -119,12 +119,20 @@ input[type="radio"] {
 .calendar-icon {
   height: 25px;
 }
+
+.alert {
+  max-width: 860px;
+  margin: 0.5rem auto;
+}
+
+footer {
+  padding: 0 1rem;
+}
 /* Global style end */
 
 /* Feature section start */
 
 .feature-header {
-  padding: 0 5rem;
   text-align: center;
 }
 
@@ -214,3 +222,9 @@ input[type="radio"] {
 }
 
 /* Current time and time zone section end */
+
+/* Join schedule form start */
+.join-schedule-form-container {
+  padding: 0 1rem;
+}
+/* Join schedule form end */

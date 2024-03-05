@@ -15,7 +15,7 @@ exports.startSchedule = async (req, res) => {
   const meetingCode = genID();
   valueObj = { ...valueObj, meetingCode };
 
-  let meetingId, participantId;
+  let meetingId, participantId, password;
 
   try {
     const meetingInfo = await insertMeeting(valueObj);
@@ -49,7 +49,11 @@ exports.startSchedule = async (req, res) => {
       throw new Error('Participant ID not found.');
     }
 
-    res.json({ meetingCode });
+    if (valueObj.password) {
+      res.json({ meetingCode, password: valueObj.password });
+    } else {
+      res.json({ meetingCode });
+    }
   } catch (error) {
     // Remove meeting if we can't add either participant or time slots
     deleteFrom('meeting', meetingId);
@@ -67,10 +71,34 @@ exports.startSchedule = async (req, res) => {
 
 exports.getMeetingInfo = async (req, res) => {
   try {
-    const { meetingCode } = req.query;
+    let meetingCode;
+    if (req.method === 'POST') {
+      meetingCode = req.body.meetingCode;
+    } else {
+      meetingCode = req.query.meetingCode;
+    }
+
+    if (!meetingCode) {
+      return {
+        alert: {
+          message: 'Please provide a meeting code.',
+          type: 'danger',
+        },
+      };
+    }
+
     const meetingInfo = await getMeeting(meetingCode);
-    const { title, host, duration, display } = meetingInfo[0];
-    return { title, host, meetingCode, duration, display };
+
+    if (!meetingInfo.length) {
+      return {
+        alert: {
+          message: 'Meeting not found.',
+          type: 'danger',
+        },
+      };
+    }
+
+    return { ...meetingInfo[0], meetingCode };
   } catch (error) {
     console.error(error);
     return {

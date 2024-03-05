@@ -8,12 +8,16 @@ const initTimezone = require('./userTimezone');
 const initCalendar = require('./calendar');
 const initCalendarForm = require('./calendarForm');
 const showScheduleMatches = require('./scheduleMatches');
+const initJoinForm = require('./joinForm');
 
 document.addEventListener('DOMContentLoaded', async () => {
-  const TZ = initTimezone(await fetchSearchData());
+  let TZ, calendar, duration, display, title;
+
+  if (getNodes('#time-zone-field')) {
+    TZ = initTimezone(await fetchSearchData());
+  }
 
   const params = new URLSearchParams(window.location.search);
-  let calendar, duration, display, title;
 
   const durationDisplayInfo = getNodes('.duration-display-info');
   if (durationDisplayInfo) {
@@ -25,8 +29,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     display = 'week';
     title = '';
   }
-
-  if (params.has('meetingCode') && params.has('showMatching')) {
+  if (getNodes('.join-schedule-form')) {
+    // join schedule form
+    initJoinForm();
+  } else if (params.has('meetingCode') && params.has('showMatching')) {
     // schedule match page
 
     duration = parseInt(duration);
@@ -52,16 +58,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     } else {
       showAlert('Invalid meeting code', 'danger');
     }
-  } else {
+  } else if (getNodes('#calendar-form')) {
     // start schedule page
     calendar = initCalendar(TZ);
     initCalendarForm(calendar);
   }
-
-  if (!getNodes('#calendar')) {
-    return;
-  }
-
   // TO DO
   // finish schedule match page
   //  - meeting code + meeting code with link

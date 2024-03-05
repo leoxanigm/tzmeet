@@ -17,7 +17,7 @@ class Timezone {
     // imported json data (script tag)
     this.searchData = searchData;
 
-    luxon.Settings.defaultLocale = 'fr'; // Until we have a language selector
+    luxon.Settings.defaultLocale = 'en-US'; // Until we have a language selector
 
     // Get user's timezone from local storage
     const zoneName = getFromLocalStorage('zoneName');

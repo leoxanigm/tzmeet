@@ -1,25 +1,32 @@
-<div class="meeting-info row gx-5">
-  <div class="card col-sm">
-    <div class="card-header">Host</div>
-    <div class="card-body">
-      {{ host }}
+<div class="meeting-info">
+  
+  <div class="info-container">
+    <div class="info-title">Meeting Share Link</div>
+    <div class="info-value">
+      tzmeet.com/{{ meetingCode }}
+      <button type="button" class="btn copy-code">
+        <i class="bi bi-copy"></i>
+      </button>
     </div>
   </div>
-  <div class="card col-sm">
-    <div class="card-header">Meeting Code</div>
-    <div class="card-body">
+  <div class="info-container">
+    <div class="info-title">Host</div>
+    <div class="info-value">{{ host }}</div>
+  </div>
+  <div class="info-container">
+    <div class="info-title">Meeting Code</div>
+    <div class="info-value">
       {{ meetingCode }}
       <button type="button" class="btn copy-code">
         <i class="bi bi-copy"></i>
       </button>
     </div>
   </div>
-  <div class="card col-sm">
-    <div class="card-header">Duration</div>
-    <div class="card-body">
-      {{ duration }}
-    </div>
+  <div class="info-container">
+    <div class="info-title">Duration</div>
+    <div class="info-value">{{ duration }}</div>
   </div>
+
   <span
     class="duration-display-info"
     data-title="{{ title }}"

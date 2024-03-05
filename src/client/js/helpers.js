@@ -98,6 +98,9 @@ module.exports = {
 
     alertPlaceholder.append(wrapper);
     window.scrollTo(0, 0);
+    setTimeout(() => {
+      wrapper.remove();
+    }, 3000);
   },
 
   sendScheduleData: async (url, scheduleDataJSON) => {
@@ -114,12 +117,20 @@ module.exports = {
   copyToCiipBoard: async (selector) => {
     try {
       const meetingCodeEl = module.exports.getNodes(selector);
-      meetingCodeEl &&
-        meetingCodeEl.addEventListener('click', async () => {
-          await navigator.clipboard.writeText(
-            meetingCodeEl.parentNode.innerText.trim()
-          );
+      if (meetingCodeEl instanceof NodeList) {
+        meetingCodeEl.forEach((el) => {
+          el.addEventListener('click', async () => {
+            await navigator.clipboard.writeText(el.parentNode.innerText.trim());
+          });
         });
+      } else {
+        meetingCodeEl &&
+          meetingCodeEl.addEventListener('click', async () => {
+            await navigator.clipboard.writeText(
+              meetingCodeEl.parentNode.innerText.trim()
+            );
+          });
+      }
     } catch (error) {
       console.error(error.message);
     }
@@ -130,11 +141,11 @@ module.exports = {
 
     const slot = {
       title,
-      start: luxon.DateTime.fromISO(timeISO, {setZone: 'utc'}).toJSDate(),
+      start: luxon.DateTime.fromISO(timeISO, { setZone: 'utc' }).toJSDate(),
       duration: [duration, durationUnit],
     };
 
-    console.log(slot)
+    console.log(slot);
 
     switch (calendarType) {
       case 'google':

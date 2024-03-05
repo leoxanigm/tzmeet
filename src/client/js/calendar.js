@@ -105,10 +105,13 @@ class Calendar {
    * @returns {luxon.DateTime} The start of current week
    */
   #currWeek() {
-    return luxon.DateTime.fromObject({
-      weekNumber: this.#weekNumber,
-      weekYear: this.#yearNumber,
-    });
+    return luxon.DateTime.fromObject(
+      {
+        weekNumber: this.#weekNumber,
+        weekYear: this.#yearNumber,
+      },
+      { locale: this.#timezone.locale }
+    );
   }
 
   #currWindow() {
