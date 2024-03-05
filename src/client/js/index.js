@@ -2,7 +2,8 @@ const {
   fetchSearchData,
   showAlert,
   getNodes,
-  copyToCiipBoard,
+  copyToClipboard,
+  autoSelect,
 } = require('./helpers');
 const initTimezone = require('./userTimezone');
 const initCalendar = require('./calendar');
@@ -40,12 +41,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     showScheduleMatches(params.get('meetingCode'), title, duration, TZ.format);
 
     // Add event listener to meetingCode
-    copyToCiipBoard('button.copy-code');
+    copyToClipboard('button.copy-code');
   } else if (params.has('meetingCode')) {
     // join schedule page
 
     // Add event listener to meetingCode
-    copyToCiipBoard('button.copy-code');
+    copyToClipboard('button.copy-code');
 
     const durationDisplayInfo = getNodes('.duration-display-info');
 
@@ -63,10 +64,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     calendar = initCalendar(TZ);
     initCalendarForm(calendar);
   }
-  // TO DO
-  // finish schedule match page
-  //  - meeting code + meeting code with link
-  // make everything mobile friendly, and improve the UI
-  // Add logo
-  // Deploy to AWS
+  
+  // Enable auto select for meeting code and link
+  autoSelect();
 });

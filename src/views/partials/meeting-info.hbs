@@ -3,7 +3,7 @@
   <div class="info-container">
     <div class="info-title">Meeting Share Link</div>
     <div class="info-value">
-      tzmeet.com/{{ meetingCode }}
+      <span class="auto-select">tzmeet.com/{{ meetingCode }}</span>
       <button type="button" class="btn copy-code">
         <i class="bi bi-copy"></i>
       </button>
@@ -16,7 +16,7 @@
   <div class="info-container">
     <div class="info-title">Meeting Code</div>
     <div class="info-value">
-      {{ meetingCode }}
+      <span class="auto-select">{{ meetingCode }}</span>
       <button type="button" class="btn copy-code">
         <i class="bi bi-copy"></i>
       </button>
@@ -24,7 +24,7 @@
   </div>
   <div class="info-container">
     <div class="info-title">Duration</div>
-    <div class="info-value">{{ duration }}</div>
+    <div class="info-value">{{ durationText }}</div>
   </div>
 
   <span

@@ -4,9 +4,9 @@
   {{else}}
   <legend>Add your preferred meeting times</legend>
   {{/if}}
-  <div class="options-container row">
+  <div class="options-container row text-center justify-content-center">
     {{#if (eq showDuration "true")}}
-    <div class="meeting-duration col mb-2" data-display="">
+    <div class="meeting-duration col-12 col-md-4 mb-2" data-display="">
       <div class="week">
         <div class="option-name">Duration (mins)</div>
         <div class="btn-group" role="group" aria-label="Meeting duration">
@@ -37,7 +37,7 @@
     {{/if}}
 
     {{#if (eq showDisplayToggle "true")}}
-    <div class="week-month-display col mb-2">
+    <div class="week-month-display col-12 col-md-4 mb-2">
       <div class="option-name">Display</div>
 
       <div class="btn-group" role="group" aria-label="Week or Month Display">
@@ -63,7 +63,7 @@
     </div>
     {{/if}}
 
-    <div class="cal-navigation col mb-2">
+    <div class="cal-navigation col-12 col-md-4 mb-2">
       <div class="option-name">Jump to</div>
 
       <div class="btn-group" role="group" aria-label="Calendar Navigation">

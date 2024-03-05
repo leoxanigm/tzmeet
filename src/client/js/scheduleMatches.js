@@ -87,12 +87,12 @@ const displayMatches = (matches, duration, hourFormat) => {
         <td>
           <input type="radio" name="time-slot" value="${match.time}"/>
         </td>
-        <td>
+        <td class="timestamp">
           <div class="day">
             <span class="date-month">${dateMonth}</span>
             <span class="day-name">${day}</span>
           </div>
-          <div class="time">${start}-${end}</div>
+          <div class="time">${start} - ${end}</div>
         </td>
         <td class="availabilities">
           <span class="count">${count}</span>
@@ -134,5 +134,4 @@ module.exports = showScheduleMatches = async (
     });
   });
 
-  console.log(shareToCalendar(matches[0].time, title, duration, 'ics'));
 };

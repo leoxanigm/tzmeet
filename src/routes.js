@@ -50,7 +50,6 @@ router.get('/meeting', async (req, res) => {
     }
   } else {
     const meetingInfo = await getMeetingInfo(req, res);
-    console.log(meetingInfo.password, req.query.password);
     if (
       (meetingInfo.password && meetingInfo.password === req.query.password) ||
       !meetingInfo.password

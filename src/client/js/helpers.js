@@ -114,7 +114,7 @@ module.exports = {
     return response.json();
   },
 
-  copyToCiipBoard: async (selector) => {
+  copyToClipboard: async (selector) => {
     try {
       const meetingCodeEl = module.exports.getNodes(selector);
       if (meetingCodeEl instanceof NodeList) {
@@ -136,6 +136,21 @@ module.exports = {
     }
   },
 
+  autoSelect: () => {
+    const container = document.querySelectorAll('.auto-select');
+    container.forEach((el) => {
+      el.addEventListener('click', () => {
+        // Clear any current selection
+        const selection = window.getSelection();
+        selection.removeAllRanges();
+
+        const range = document.createRange();
+        range.selectNodeContents(el);
+        selection.addRange(range);
+      });
+    });
+  },
+
   shareToCalendar: (timeISO, title, duration, calendarType) => {
     durationUnit = [4, 8, 12].includes(duration) ? 'hour' : 'minute';
 
@@ -144,8 +159,6 @@ module.exports = {
       start: luxon.DateTime.fromISO(timeISO, { setZone: 'utc' }).toJSDate(),
       duration: [duration, durationUnit],
     };
-
-    console.log(slot);
 
     switch (calendarType) {
       case 'google':

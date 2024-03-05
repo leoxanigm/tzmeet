@@ -98,7 +98,11 @@ exports.getMeetingInfo = async (req, res) => {
       };
     }
 
-    return { ...meetingInfo[0], meetingCode };
+    durationText = [4, 8, 12].includes(meetingInfo[0].duration)
+      ? `${meetingInfo[0].duration} hours`
+      : `${meetingInfo[0].duration} minutes`;
+
+    return { ...meetingInfo[0], meetingCode, durationText };
   } catch (error) {
     console.error(error);
     return {
@@ -128,7 +132,10 @@ exports.joinSchedule = async (req, res) => {
           await insertTimeSlot(valueObj);
         });
 
-        res.json({ meetingCode: valueObj.meetingCode });
+        res.json({
+          meetingCode: valueObj.meetingCode,
+          password: meetingInfo[0].password,
+        });
       } catch (error) {
         // Remove participant if we can't add time slots
         deleteFrom('participant', participantId);

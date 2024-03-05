@@ -1,4 +1,25 @@
 .meeting-info {
   display: flex;
-  
+  flex-wrap: wrap;
+
+  & .info-container {
+    padding: 0.25rem 1rem;
+    border: 1px solid var(--gray-500);
+    border-radius: var(--border-m);
+    display: flex;
+    align-items: center;
+    margin: 0.5rem;
+
+    &:first-child {
+      width: 100%;
+    }
+
+    & .info-title {
+      font-size: var(--font-sm);
+      color: var(--gray-700);
+      margin-right: 0.5rem;
+      border-right: 1px solid var(--gray-400);
+      padding-right: 0.25rem;
+    }
+  }
 }
