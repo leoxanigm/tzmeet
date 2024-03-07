@@ -62,7 +62,7 @@ class Calendar {
       );
 
       // Init calendar selection for desktop
-      if (window.innerWidth > 768) {
+      if (window.innerWidth > 768 || this.#duration === '60') {
         this.#initCalendarSelection();
       } else {
         // Add slot selection modal HTML if it doesn't exist
