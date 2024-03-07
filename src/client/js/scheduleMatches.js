@@ -3,8 +3,6 @@
 const { getNodes, shareToCalendar } = require('./helpers');
 const luxon = require('luxon');
 
-// time.toFormat('yyyyMMdd') + time.toFormat('HHmmss')
-
 const fetchMatches = async (meetingCode) => {
   let matches = [];
 
@@ -45,6 +43,10 @@ const availabilityCountNames = (participants) => {
     }
     return countObj;
   }, {});
+
+  if (availabilityInfo.count === 2) {
+    availabilityInfo.names = availabilityInfo.names.replace(',', ' and');
+  }
 
   if (availabilityInfo.count > 2) {
     availabilityInfo.names += ` and ${availabilityInfo.count - 2} others`;

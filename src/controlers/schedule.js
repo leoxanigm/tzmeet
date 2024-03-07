@@ -98,7 +98,7 @@ exports.getMeetingInfo = async (req, res) => {
       };
     }
 
-    durationText = [4, 8, 12].includes(meetingInfo[0].duration)
+    durationText = ['4', '8', '12'].includes(meetingInfo[0].duration)
       ? `${meetingInfo[0].duration} hours`
       : `${meetingInfo[0].duration} minutes`;
 

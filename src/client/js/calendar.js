@@ -2,6 +2,8 @@ const {
   getNodes,
   saveToLocalStorage,
   getFromLocalStorage,
+  addSlotSelectionModalHTML,
+  showSlotSelectionModal,
 } = require('./helpers');
 const { drawCalendar, drawDiv } = require('./drawToDOM');
 const MouseToPos = require('./mousetopos');
@@ -21,8 +23,8 @@ class Calendar {
     this.#weekNumber = this.#timezone.timeObj.weekNumber;
     this.#yearNumber = this.#timezone.timeObj.weekYear;
 
-    this.display = display || getFromLocalStorage('display') || this.#display;
-    this.duration =
+    this.#display = display || getFromLocalStorage('display') || this.#display;
+    this.#duration =
       duration || getFromLocalStorage('duration') || this.#duration;
 
     this.init();
@@ -59,8 +61,16 @@ class Calendar {
         this.#display
       );
 
-      // Init calendar selection
-      this.#initCalendarSelection();
+      // Init calendar selection for desktop
+      if (window.innerWidth > 768) {
+        this.#initCalendarSelection();
+      } else {
+        // Add slot selection modal HTML if it doesn't exist
+        !getNodes('#slot-selection-modal-container') &&
+          addSlotSelectionModalHTML();
+
+        this.#initMobileCalendarSelection();
+      }
 
       // Hide placeholder after calendar is loaded
       getNodes('#cal-placeholder').style.display = 'none';
@@ -175,15 +185,21 @@ class Calendar {
     this.init();
   }
 
-  #calculateSlotTime(x, y, division_factor, calStart) {
+  #calculateSlotTime(
+    x,
+    y,
+    division_factor,
+    calStart,
+    duration = this.#duration
+  ) {
     // Calculate the time slot based on the x and y coordinates and calendar start
     if (this.#display === 'week') {
       // console.log(Math.floor(x / (60 / this.#duration) / division_factor.cols));
       const mainDivisionX = division_factor.cols / 7;
       const currDaySlot = Math.floor(Math.round(x) / mainDivisionX);
       const currMinuteSlot =
-        (x - currDaySlot * mainDivisionX) * this.#duration +
-        y * mainDivisionX * this.#duration;
+        (x - currDaySlot * mainDivisionX) * duration +
+        y * mainDivisionX * duration;
 
       const slotStart = calStart.plus({
         days: currDaySlot,
@@ -198,10 +214,10 @@ class Calendar {
         Math.floor(Math.round(y) / mainDivisionY) * 7;
       const currHourSlot =
         (x - Math.floor(Math.round(x) / mainDivisionX) * mainDivisionX) *
-          this.#duration +
+          duration +
         (y - Math.floor(Math.round(y) / mainDivisionY) * mainDivisionY) *
           mainDivisionX *
-          this.#duration;
+          duration;
 
       const slotStart = this.calStart.plus({
         days: currDaySlot,
@@ -262,6 +278,121 @@ class Calendar {
     );
 
     return slotTime.toISO();
+  }
+
+  // #drawMobileSelectionModal() {
+
+  // }
+
+  #initMobileCalendarSelection() {
+    // Redraw selected div slots for current time window
+    this.#redrawDivSlots();
+
+    const division_factor_draw = {
+      4: { cols: 21, rows: 12 }, // Month display, 4 hrs
+      8: { cols: 21, rows: 6 }, // Month display, 8 hrs
+      12: { cols: 14, rows: 6 }, // Month display, 12 hrs
+      10: { cols: 21, rows: 48 }, // Week display, 10 mins
+      15: { cols: 14, rows: 48 }, // Week display, 15 mins
+      30: { cols: 14, rows: 24 }, // Week display, 30 mins
+      60: { cols: 7, rows: 24 }, // Week display, 60 mins
+    };
+
+    const division_factor_click = {
+      week: { cols: 7, rows: 24 },
+      month: { cols: 7, rows: 6 },
+    };
+
+    // Get width of day columns
+    const container = document.querySelector('#calendar-body .divisions');
+
+    let { width: containerWidth, height: containerHeight } =
+      container.getBoundingClientRect();
+
+    // Get the number of columns and rows sub-divisions of each hour(day) for each duration
+    const divisionClickWidth =
+      containerWidth / division_factor_click[this.#display].cols;
+    const divisionClickHeight =
+      containerHeight / division_factor_click[this.#display].rows;
+
+    const divisionCols =
+      division_factor_draw[this.#duration].cols /
+      division_factor_click[this.#display].cols;
+    const divisionRows =
+      division_factor_draw[this.#duration].rows /
+      division_factor_click[this.#display].rows;
+
+    const divisionDrawWidth = divisionClickWidth / divisionCols;
+    const divisionDrawHeight = divisionClickHeight / divisionRows;
+
+    const options = {
+      container,
+      events: ['click'],
+      subdivision: division_factor_click[this.#display],
+      outputFunction: (x, y, event) => {
+        const duration = this.#display === 'week' ? 60 : 24;
+
+        const time = this.#calculateSlotTime(
+          x / divisionClickWidth,
+          y / divisionClickHeight,
+          division_factor_click[this.#display],
+          this.calStart,
+          duration
+        );
+
+        const slots = [];
+
+        const unit = this.#display === 'week' ? 'minutes' : 'hours';
+
+        for (let i = 0; i < divisionRows; i++) {
+          for (let j = 0; j < divisionCols; j++) {
+            slots.push({
+              time: time.plus({
+                [unit]: (i * divisionCols + j) * this.#duration,
+              }),
+              xOffset: x + divisionDrawWidth * j,
+              yOffset: y + divisionDrawHeight * i,
+              selected: false,
+            });
+          }
+        }
+
+        slots.forEach((slotObj) => {
+          if (
+            this.#checkSlotInObj(
+              slotObj.xOffset,
+              slotObj.yOffset,
+              this.#selectionDivs
+            )
+          ) {
+            slotObj.selected = true;
+          }
+        });
+
+        const format = this.#timezone.format === '12' ? 'h:mm a' : 'HH:mm';
+        showSlotSelectionModal(slots, format, (x, y) => {
+          if (this.#checkSlotInObj(x, y, this.#selectionDivs)) {
+            this.#removeSlotFromObj(x, y, this.#selectionDivs);
+            this.#removeSlotFromObj(x, y, this.#selectedSlots);
+            return;
+          }
+
+          const slotTime = this.#drawTimeSlot(
+            x,
+            y,
+            divisionDrawWidth,
+            divisionDrawHeight,
+            container,
+            division_factor_draw,
+            this.#selectionDivs,
+            ['selected-div']
+          );
+
+          this.#addSlotToObj(x, y, this.#selectedSlots, slotTime);
+        });
+      },
+    };
+    const mouseToPos = new MouseToPos(options);
   }
 
   #initCalendarSelection() {

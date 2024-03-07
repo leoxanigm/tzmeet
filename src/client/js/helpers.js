@@ -1,6 +1,7 @@
 // Description: Helper functions for the client-side JavaScript
 
 const luxon = require('luxon');
+const bootstrap = require('bootstrap');
 const { google, outlook, office365, ics } = require('calendar-link');
 
 module.exports = {
@@ -172,5 +173,74 @@ module.exports = {
       default:
         return null;
     }
+  },
+
+  addSlotSelectionModalHTML: () => {
+    const modalHTML = `
+      <div
+        class="modal fade show"
+        id="slot-selection-modal"
+        style="display: none"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5">Select time slot</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-success"
+                data-bs-dismiss="modal"
+                >Done</button>
+            </div>
+          </div>
+        </div>
+      </div>  
+    `;
+    const modalContainer = document.createElement('div');
+    modalContainer.id = 'slot-selection-modal-container';
+    modalContainer.innerHTML = modalHTML;
+    module.exports.getNodes('body').appendChild(modalContainer);
+  },
+
+  showSlotSelectionModal: (slotArray, format, clickCallback) => {
+    const modal = new bootstrap.Modal(
+      module.exports.getNodes('#slot-selection-modal')
+    );
+    const modalBody = module.exports.getNodes(
+      '#slot-selection-modal .modal-body'
+    );
+
+    modalBody.innerHTML = '';
+
+    const dateContainer = document.createElement('div');
+    dateContainer.classList.add('date-info');
+    dateContainer.textContent = `On ${slotArray[0].time.toFormat(
+      'ccc d, yyyy'
+    )}, at:`;
+    modalBody.appendChild(dateContainer);
+
+    slotArray.forEach((slotObj) => {
+      const time = slotObj.time.toFormat(format);
+
+      const slotSpan = document.createElement('span');
+      slotSpan.textContent = time;
+      slotSpan.classList.add('time-slot');
+      slotObj.selected && slotSpan.classList.add('selected');
+      slotSpan.dataset.x = slotObj.xOffset;
+      slotSpan.dataset.y = slotObj.yOffset;
+
+      slotSpan.addEventListener('click', (e) => {
+        e.currentTarget.classList.toggle('selected');
+        clickCallback(e.currentTarget.dataset.x, e.currentTarget.dataset.y);
+      });
+
+      modalBody.appendChild(slotSpan);
+    });
+    modal.show();
   },
 };

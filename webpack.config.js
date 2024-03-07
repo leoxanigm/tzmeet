@@ -15,7 +15,7 @@ module.exports = {
     assetModuleFilename: 'img/[name][ext]',
     clean: true,
   },
-  devtool: 'source-map',
+  // devtool: 'source-map',
   module: {
     rules: [
       {

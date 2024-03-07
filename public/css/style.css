@@ -676,6 +676,43 @@ footer {
   }
 }
 
+#slot-selection-modal {
+  & .modal-header,
+  & .modal-footer {
+    padding: 0.5rem 1rem;
+  }
+
+  & .modal-body {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+
+    & .date-info {
+      font-size: var(--font-sm);
+      color: var(--gray-700);
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+
+    & .time-slot {
+      font-size: var(--font-sm);
+      flex: 0 0 auto;
+      width: 48%;
+      margin-bottom: 0.5rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: var(--border-m);
+      border: var(--border-xsm) solid var(--gray-500);
+      cursor: pointer;
+      box-shadow: 0px 0px 1px 2px var(--gray-200);
+
+      &.selected {
+        background-color: var(--green-transparent);
+        border-color: var(--green);
+      }
+    }
+  }
+}
+
 .meeting-info {
   display: flex;
   flex-wrap: wrap;
