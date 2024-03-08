@@ -121,19 +121,21 @@ module.exports = showScheduleMatches = async (
   displayMatches(matches, duration, hourFormat);
 
   // Add event listener to save time slot
-  getNodes('input[type="radio"][name="time-slot"]').forEach((slotSelector) => {
-    slotSelector.addEventListener('click', (e) => {
-      if (e.currentTarget.checked) {
-        getNodes('.export-calendar-container .btn').forEach((exportBtn) => {
-          exportBtn.href = shareToCalendar(
-            slotSelector.value,
-            title,
-            duration,
-            exportBtn.dataset.type
-          );
-        });
-      }
-    });
-  });
 
+  document
+    .querySelectorAll('input[type="radio"][name="time-slot"]')
+    .forEach((slotSelector) => {
+      slotSelector.addEventListener('click', (e) => {
+        if (e.currentTarget.checked) {
+          getNodes('.export-calendar-container .btn').forEach((exportBtn) => {
+            exportBtn.href = shareToCalendar(
+              slotSelector.value,
+              title,
+              duration,
+              exportBtn.dataset.type
+            );
+          });
+        }
+      });
+    });
 };

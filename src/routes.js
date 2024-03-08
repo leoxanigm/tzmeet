@@ -1,12 +1,14 @@
 const router = require('express').Router();
+const { body, validationResult } = require('express-validator');
 
 const {
   startSchedule,
   getMeetingInfo,
   joinSchedule,
   scheduleMatches,
-} = require('./controlers/schedule');
+} = require('./controllers/schedule');
 const { getSearchData } = require('./utils/helpers/misc');
+const sendFeedbackEmail = require('./controllers/feedback');
 
 router.get('/', (req, res) => {
   res.render('home');
@@ -86,6 +88,46 @@ router.post('/join-schedule-password', async (req, res) => {
   }
 });
 
+router.get('/feedback', (req, res) => {
+  res.render('feedback-form');
+});
+
+router.post(
+  '/feedback',
+  [
+    body('email').escape(),
+    body('subject').notEmpty().escape(),
+    body('message').notEmpty().escape(),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.render('feedback-form', {
+        alert: {
+          message:
+            'Error sending feedback, please fill provide feedback subject and message.',
+          type: 'danger',
+        },
+      });
+    }
+
+    await sendFeedbackEmail(req, res);
+  }
+);
+
+router.get('/feedback-success', (req, res) => {
+  res.render('feedback-sent');
+});
+
+router.get('/privacy', (req, res) => {
+  res.render('privacy');
+});
+
+router.get('/terms', (req, res) => {
+  res.render('terms');
+});
+
+// Should be the last route
 router.get('/:meetingCode', async (req, res) => {
   const meetingCode = req.params.meetingCode;
   req.query.meetingCode = meetingCode;

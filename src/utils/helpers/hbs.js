@@ -28,8 +28,4 @@ module.exports = () => {
   hbs.registerHelper('currentYear', () => {
     return new Date().getFullYear();
   });
-
-  hbs.registerHelper('supportEmail', () => {
-    return process.env.SUPPORT_EMAIL;
-  });
 };

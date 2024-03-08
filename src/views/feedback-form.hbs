@@ -1,0 +1,45 @@
+<div class="container" style="max-width: 600px">
+  <h4 class="text-center my-4">Submit a feedback or an issue.</h4>
+  <form method="POST">
+    <div class="mb-3">
+      <label for="email" class="form-label">Email address</label>
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        name="email"
+        aria-describedby="emailHelp"
+        autocomplete="off"
+      />
+      <div id="emailHelp" class="form-text">
+        If you want to be contacted back, please enter your email address. We
+        will never share your email with anyone else.
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="subject" class="form-label">Subject</label>
+      <input
+        type="text"
+        class="form-control"
+        id="subject"
+        name="subject"
+        required
+        autocomplete="off"
+        minlength="10"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="message" class="form-label">Message</label>
+      <textarea
+        class="form-control"
+        id="message"
+        name="message"
+        rows="3"
+        required
+        autocomplete="off"
+        minlength="50"
+      ></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
