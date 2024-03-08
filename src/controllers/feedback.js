@@ -18,10 +18,9 @@ function sendEmail(mailOptions) {
     if (transporter.isIdle()) {
       transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
-          console.log(info);
+          console.log(error);
           reject(error);
         } else {
-          console.log(info);
           resolve(info);
         }
       });
@@ -35,13 +34,14 @@ module.exports = sendFeedbackEmail = async (req, res) => {
   const text = `
     From: ${email} \n
     Subject: ${subject} \n
-    Message: ${message}
+    Message: ${message} \n
+    Time: ${new Date().toUTCString()}
   `;
 
   const mailOptions = {
     from: 'feedback@tzmeet.com',
     to: process.env.FEEDBACK_EMAIL,
-    subject: 'New Feedback for TZMeet',
+    subject: `New Feedback for TZMeet: ${subject.slice(20)}`,
     text: text,
   };
 
