@@ -41,7 +41,7 @@ module.exports = sendFeedbackEmail = async (req, res) => {
   const mailOptions = {
     from: 'feedback@tzmeet.com',
     to: process.env.FEEDBACK_EMAIL,
-    subject: `New Feedback for TZMeet: ${subject.slice(20)}`,
+    subject: `New Feedback for TZMeet: ${subject.slice(0, 20)}`,
     text: text,
   };
 

@@ -2,10 +2,14 @@ const express = require('express');
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
+const compression = require('compression');
 
 // Setup application
 const app = express();
 dotenv.config();
+
+// Setup compression
+app.use(compression());
 
 const router = require('./routes');
 

@@ -127,6 +127,12 @@ router.get('/terms', (req, res) => {
   res.render('terms');
 });
 
+// Robots.txt
+router.get('/robots.txt', (req, res) => {
+  res.type('text/plain');
+  res.send('User-agent: *\nDisallow: /privacy/\nDisallow: /terms/');
+});
+
 // Should be the last route
 router.get('/:meetingCode', async (req, res) => {
   const meetingCode = req.params.meetingCode;
