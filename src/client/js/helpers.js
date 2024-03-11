@@ -219,9 +219,9 @@ module.exports = {
 
     const dateContainer = document.createElement('div');
     dateContainer.classList.add('date-info');
-    dateContainer.textContent = `On ${slotArray[0].time.toFormat(
-      'ccc d, yyyy'
-    )}, at:`;
+    dateContainer.textContent = `On ${slotArray[0].time
+      .toLocaleString(luxon.DateTime.DATE_MED_WITH_WEEKDAY, { locale: 'en-US' })
+      .replace('ccc d, yyyy')}, at:`;
     modalBody.appendChild(dateContainer);
 
     slotArray.forEach((slotObj) => {
